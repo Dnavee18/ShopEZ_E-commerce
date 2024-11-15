@@ -147,29 +147,67 @@ mongoose.connect('mongodb://localhost:27017/shopEZ',{
 
     // Add new product
 
-    app.post('/add-new-product', async(req, res)=>{
-        const {productName, productDescription, productMainImg, productCarousel, productSizes, productGender, productCategory, productNewCategory, productPrice, productDiscount} = req.body;
-        try{
-            if(productCategory === 'new category'){
+    app.post('/add-new-product', async (req, res) => {
+        const {
+            productName,
+            productDescription,
+            productMainImg,
+            productCarousel,
+            productSizes,
+            productGender,
+            productCategory,
+            productNewCategory,
+            productPrice,
+            productDiscount,
+            isFlashSale // Add the isFlashSale value
+        } = req.body;
+    
+        try {
+            if (productCategory === 'new category') {
                 const admin = await Admin.findOne();
                 admin.categories.push(productNewCategory);
                 await admin.save();
-                const newProduct = new Product({title: productName, description: productDescription, mainImg: productMainImg, carousel: productCarousel, category: productNewCategory,sizes: productSizes, gender: productGender, price: productPrice, discount: productDiscount});
+    
+                const newProduct = new Product({
+                    title: productName,
+                    description: productDescription,
+                    mainImg: productMainImg,
+                    carousel: productCarousel,
+                    category: productNewCategory,
+                    sizes: productSizes,
+                    gender: productGender,
+                    price: productPrice,
+                    discount: productDiscount,
+                    isFlashSale: isFlashSale // Store the isFlashSale value here
+                });
                 await newProduct.save();
-            } else{
-                const newProduct = new Product({title: productName, description: productDescription, mainImg: productMainImg, carousel: productCarousel, category: productCategory,sizes: productSizes, gender: productGender, price: productPrice, discount: productDiscount});
+            } else {
+                const newProduct = new Product({
+                    title: productName,
+                    description: productDescription,
+                    mainImg: productMainImg,
+                    carousel: productCarousel,
+                    category: productCategory,
+                    sizes: productSizes,
+                    gender: productGender,
+                    price: productPrice,
+                    discount: productDiscount,
+                    isFlashSale: isFlashSale// Store the isFlashSale value here
+                });
                 await newProduct.save();
             }
-            res.json({message: "product added!!"});
-        }catch(err){
-            res.status(500).json({message: "Error occured"});
+            res.json({ message: "product added!!" });
+        } catch (err) {
+            console.error(err); // Log the error for debugging
+            res.status(500).json({ message: "Error occurred" });
         }
-    })
+    });
+    
 
     // update product
 
     app.put('/update-product/:id', async(req, res)=>{
-        const {productName, productDescription, productMainImg, productCarousel, productSizes, productGender, productCategory, productNewCategory, productPrice, productDiscount} = req.body;
+        const {productName, productDescription, productMainImg, productCarousel, productSizes, productGender, productCategory, productNewCategory, productPrice, productDiscount, productIsFlashSale} = req.body;
         try{
             if(productCategory === 'new category'){
                 const admin = await Admin.findOne();
@@ -187,6 +225,7 @@ mongoose.connect('mongodb://localhost:27017/shopEZ',{
                 product.gender = productGender;
                 product.price = productPrice;
                 product.discount = productDiscount;
+                product.isFlashSale = productIsFlashSale;
 
                 await product.save();
                
@@ -202,6 +241,7 @@ mongoose.connect('mongodb://localhost:27017/shopEZ',{
                 product.gender = productGender;
                 product.price = productPrice;
                 product.discount = productDiscount;
+                product.isFlashSale = productIsFlashSale;
 
                 await product.save();
             }
@@ -359,6 +399,17 @@ mongoose.connect('mongodb://localhost:27017/shopEZ',{
         }catch(err){
             res.status(500).json({message: "Error occured"});
         }
+    });
+
+// Fetch Flash Sale Products (this is an example route)
+    app.get('/flash-sale-products', async (req, res) => {
+    try {
+        const products = await Product.find({ isFlashSale: true }); // Assuming the product has 'isFlashSale' field to identify flash sale items
+        res.json(products);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error fetching flash sale products' });
+    }
     });
 
 
