@@ -70,31 +70,44 @@ const UpdateProduct = () => {
 
   const navigate = useNavigate();
 
-  const handleUpdateProduct = async() => {
+  const handleUpdateProduct = async () => { 
     await axios.put(`http://localhost:6001/update-product/${id}`, {
-      productName, productDescription, productMainImg, productCarousel: [productCarouselImg1, productCarouselImg2, productCarouselImg3],
-      productSizes, productGender, productCategory, productNewCategory, productPrice, productDiscount, isFlashSale
-    }).then(
-      (response)=>{
-        alert("Product updated");
-        setProductName('');
-        setProductDescription('');
-        setProductMainImg('');
-        setProductCarouselImg1('');
-        setProductCarouselImg2('');
-        setProductCarouselImg3('');
-        setProductSizes([]);
-        setProductGender('');
-        setProductCategory('');
-        setProductNewCategory('');
-        setProductPrice(0);
-        setProductDiscount(0);
-        setIsFlashSale(false);  // Reset Flash Sale status
-
-        navigate('/all-products');
-      }
-    )
-  }
+      productName,
+      productDescription,
+      productMainImg,
+      productCarousel: [productCarouselImg1, productCarouselImg2, productCarouselImg3],
+      productSizes,
+      productGender,
+      productCategory,
+      productNewCategory,
+      productPrice,
+      productDiscount,
+      isFlashSale: isFlashSale || false, // Ensure isFlashSale is false if undefined
+    }).then((response) => {
+      alert("Product updated");
+  
+      // Reset all states
+      setProductName('');
+      setProductDescription('');
+      setProductMainImg('');
+      setProductCarouselImg1('');
+      setProductCarouselImg2('');
+      setProductCarouselImg3('');
+      setProductSizes([]);
+      setProductGender('');
+      setProductCategory('');
+      setProductNewCategory('');
+      setProductPrice(0);
+      setProductDiscount(0);
+      setIsFlashSale(false); // Reset Flash Sale status
+  
+      navigate('/all-products');
+    }).catch((error) => {
+      console.error("Error updating product:", error);
+      alert("Failed to update product. Please try again.");
+    });
+  };
+  
 
   return (
     <div className="new-product-page">

@@ -31,6 +31,7 @@
     width: 70%;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .nav-search input{
@@ -167,3 +168,4 @@ display: flex;
     
     color: rgb(235, 240, 245);
 }
+

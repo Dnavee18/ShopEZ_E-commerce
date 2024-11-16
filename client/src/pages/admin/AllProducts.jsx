@@ -89,30 +89,30 @@ const AllProducts = () => {
                     <h6>Sort By</h6>
                     <div className="all-product-filter-sort-body all-product-sub-filter-body">
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sortFilter"  id="filter-sort-radio1" value="popularity" checked={sortFilter === 'popularity'} onChange={handleSortFilterChange} />
-                            <label class="form-check-label" for="filter-sort-radio1" >
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="sortFilter"  id="filter-sort-radio1" value="popularity" checked={sortFilter === 'popularity'} onChange={handleSortFilterChange} />
+                            <label className="form-check-label" htmlFor="filter-sort-radio1" >
                                 Popularity
                             </label>
                         </div>
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sortFilter" id="filter-sort-radio2" value="low-price" checked={sortFilter === 'low-price'} onChange={handleSortFilterChange}  />
-                            <label class="form-check-label" for="filter-sort-radio2">
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="sortFilter" id="filter-sort-radio2" value="low-price" checked={sortFilter === 'low-price'} onChange={handleSortFilterChange}  />
+                            <label className="form-check-label" htmlFor="filter-sort-radio2">
                                 Price (low to high)
                             </label>
                         </div>
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sortFilter" id="filter-sort-radio3" value="high-price" checked={sortFilter === 'high-price'} onChange={handleSortFilterChange}  />
-                            <label class="form-check-label" for="filter-sort-radio3">
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="sortFilter" id="filter-sort-radio3" value="high-price" checked={sortFilter === 'high-price'} onChange={handleSortFilterChange}  />
+                            <label className="form-check-label" htmlFor="filter-sort-radio3">
                                 Price (high to low)
                             </label>
                         </div>
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sortFilter" id="filter-sort-radio4" value="discount" checked={sortFilter === 'discount'} onChange={handleSortFilterChange}  />
-                            <label class="form-check-label" for="filter-sort-radio4">
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="sortFilter" id="filter-sort-radio4" value="discount" checked={sortFilter === 'discount'} onChange={handleSortFilterChange}  />
+                            <label className="form-check-label" htmlFor="filter-sort-radio4">
                                 Discount
                             </label>
                         </div>
@@ -125,9 +125,9 @@ const AllProducts = () => {
                         
                         {categories.map((category)=>{
                             return(
-                                <div class="form-check" key={category}>
-                                    <input class="form-check-input" type="checkbox" value={category} id={'productCategory'+ category} checked={categoryFilter.includes(category)} onChange={handleCategoryCheckBox} />
-                                    <label class="form-check-label" for={'productCategory'+ category}>
+                                <div className="form-check" key={category}>
+                                    <input className="form-check-input" type="checkbox" value={category} id={'productCategory'+ category} checked={categoryFilter.includes(category)} onChange={handleCategoryCheckBox} />
+                                    <label className="form-check-label" htmlFor={'productCategory'+ category}>
                                         {category}
                                     </label>
                                 </div>
@@ -140,23 +140,23 @@ const AllProducts = () => {
                     <h6>Gender</h6>
                     <div className="all-product-filter-gender-body all-product-sub-filter-body">
                         
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Men" id="filter-gender-check-1" checked={genderFilter.includes('Men')} onChange={handleGenderCheckBox} />
-                            <label class="form-check-label" for="filter-gender-check-1">
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" value="Men" id="filter-gender-check-1" checked={genderFilter.includes('Men')} onChange={handleGenderCheckBox} />
+                            <label className="form-check-label" htmlFor="filter-gender-check-1">
                                 Men
                             </label>
                         </div>
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Women" id="filter-gender-check-2" checked={genderFilter.includes('Women')} onChange={handleGenderCheckBox}  />
-                            <label class="form-check-label" for="filter-gender-check-2">
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" value="Women" id="filter-gender-check-2" checked={genderFilter.includes('Women')} onChange={handleGenderCheckBox}  />
+                            <label className="form-check-label" htmlFor="filter-gender-check-2">
                                 Women
                             </label>
                         </div>
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="Unisex" id="filter-gender-check-3" checked={genderFilter.includes('Unisex')} onChange={handleGenderCheckBox}  />
-                            <label class="form-check-label" for="filter-gender-check-3">
+                        <div className="form-check">
+                            <input className="form-check-input" type="checkbox" value="Unisex" id="filter-gender-check-3" checked={genderFilter.includes('Unisex')} onChange={handleGenderCheckBox}  />
+                            <label className="form-check-label" htmlFor="filter-gender-check-3">
                                 Unisex
                             </label>
                         </div>

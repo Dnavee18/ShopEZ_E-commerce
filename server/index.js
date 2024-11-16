@@ -126,23 +126,35 @@ mongoose.connect('mongodb://localhost:27017/shopEZ',{
         }
     })
 
-
-    // Fetch categories
-
-    app.get('/fetch-categories', async(req, res)=>{
-        try{
-            const data = await Admin.find();
-            if(data.length===0){
-                const newData = new Admin({banner: "", categories: []})
-                await newData.save();
-                return res.json(newData[0].categories);
-            }else{
-                return res.json(data[0].categories);
-            }
-        }catch(err){
-            res.status(500).json({message: "Error occured"});
-        }
-    })
+// Fetch categories
+app.get('/fetch-categories', async (req, res) => {
+    try {
+      const data = await Admin.find();
+      
+      // Check if there is no data (empty categories array)
+      if (data.length === 0 || data[0].categories.length === 0) {
+        // If no categories exist, you can either return an empty array or populate with default categories
+        const defaultCategories = [
+          'Fashion',
+          'Electronics',
+          'Mobiles',
+          'Groceries',
+          'Sports Equipment',
+        ];
+  
+        // If you want to initialize with default categories
+        const newData = new Admin({ banner: "", categories: defaultCategories });
+        await newData.save();
+        
+        return res.json(defaultCategories);  // Return default categories
+      } else {
+        return res.json(data[0].categories);  // Return categories from DB
+      }
+    } catch (err) {
+      res.status(500).json({ message: "Error occurred" });
+    }
+  });
+  
 
 
     // Add new product
@@ -195,7 +207,9 @@ mongoose.connect('mongodb://localhost:27017/shopEZ',{
                     isFlashSale: isFlashSale// Store the isFlashSale value here
                 });
                 await newProduct.save();
+                
             }
+            console.log('Flash Sale:', isFlashSale);
             res.json({ message: "product added!!" });
         } catch (err) {
             console.error(err); // Log the error for debugging
@@ -207,7 +221,8 @@ mongoose.connect('mongodb://localhost:27017/shopEZ',{
     // update product
 
     app.put('/update-product/:id', async(req, res)=>{
-        const {productName, productDescription, productMainImg, productCarousel, productSizes, productGender, productCategory, productNewCategory, productPrice, productDiscount, productIsFlashSale} = req.body;
+        const {productName, productDescription, productMainImg, productCarousel, productSizes, productGender, productCategory, 
+            productNewCategory, productPrice, productDiscount, isFlashSale} = req.body;
         try{
             if(productCategory === 'new category'){
                 const admin = await Admin.findOne();
@@ -225,7 +240,7 @@ mongoose.connect('mongodb://localhost:27017/shopEZ',{
                 product.gender = productGender;
                 product.price = productPrice;
                 product.discount = productDiscount;
-                product.isFlashSale = productIsFlashSale;
+                product.isFlashSale = isFlashSale;
 
                 await product.save();
                
@@ -241,7 +256,7 @@ mongoose.connect('mongodb://localhost:27017/shopEZ',{
                 product.gender = productGender;
                 product.price = productPrice;
                 product.discount = productDiscount;
-                product.isFlashSale = productIsFlashSale;
+                product.isFlashSale = isFlashSale;
 
                 await product.save();
             }
@@ -412,6 +427,22 @@ mongoose.connect('mongodb://localhost:27017/shopEZ',{
     }
     });
 
+    // Assuming you're using Express.js
+    // Search products by query
+
+    app.get('/search', async (req, res) => {
+        const { query } = req.query;
+        try {
+          const products = await Product.find({
+            title: { $regex: query, $options: 'i' }, // case-insensitive search
+          }).limit(10); // You can limit the number of results
+          res.json(products);
+        } catch (err) {
+          res.status(500).json({ message: 'Error occurred' });
+        }
+      });
+      
+      
 
     // Order from cart
 

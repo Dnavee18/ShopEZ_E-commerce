@@ -85,7 +85,7 @@ const AllOrders = () => {
                       :
                       <span>
                         <div >
-                          <select class="form-select form-select-sm" id='flotingSelect-allOrders' defaultValue="" onChange={(e)=> setUpdateStatus(e.target.value)}>
+                          <select className="form-select form-select-sm" id='flotingSelect-allOrders' defaultValue="" onChange={(e)=> setUpdateStatus(e.target.value)}>
                             <option value="" disabled>Update order status</option>
                             <option value="Order placed">Order Placed</option>
                             <option value="In-transit">In-transit</option>
