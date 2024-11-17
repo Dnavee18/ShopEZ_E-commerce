@@ -19,14 +19,14 @@
 }
 
 .products-filter h4{
-    color: rgb(67, 101, 130);
+    color: rgb(72, 53, 44);
 }
 .product-filters-body{
     padding-left: 2vw;
 }
 
 .product-filters-body h6{
-    color: rgb(83, 111, 137);
+    color: rgb(120, 94, 82);
 }
 
 .sub-filter-body{
@@ -34,7 +34,7 @@
 
 }
 .sub-filter-body label{
-    color: rgb(101, 128, 151);
+    color: rgb(142, 107, 91);
     cursor: pointer;
 }
 .sub-filter-body input{
@@ -48,7 +48,7 @@
 }
 
 .products-body h3{
-    color: rgb(76, 113, 141);
+    color: rgb(72, 53, 44);
 }
 
 .products{

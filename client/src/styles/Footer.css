@@ -1,8 +1,8 @@
 .Footer{
 
-    background-color: #3929b4;
-    color: aliceblue;
-    padding: 3vh 3vw;
+    background-color: #eca34a;
+    color: rgb(66, 5, 5);
+    padding: 2vh 2vw;
     margin-top: 3vh;
 
 }
@@ -15,8 +15,8 @@
     display: flex;
     justify-content: space-evenly;
     gap: 10vw;
-    margin-bottom: 3vh;
-    margin-top: 3vh;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
 }
 
 .footer-body ul{
@@ -41,6 +41,6 @@
 
 .footer-bottom p{
     text-align: center;
-    color: rgb(193, 196, 198);
+    color: rgb(66, 5, 5);
     margin: 0;
 }

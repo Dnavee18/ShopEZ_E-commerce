@@ -1,13 +1,13 @@
 .flashSaleContainer{
 
     margin: 3vh 10px 10vh 10px;
-    background-color: rgba(235, 239, 243, 0.685);
+    background-color: rgba(255, 255, 255, 0.685);
     padding: 10px 0;
 }
 .flashSaleContainer h3{
 
     margin-left: 2vw;
-    color: rgb(28, 68, 82);
+    color: rgb(72, 53, 44);
 }
 
 .flashSale-body{

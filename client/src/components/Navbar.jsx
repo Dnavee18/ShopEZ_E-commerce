@@ -1,71 +1,65 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { BsCart3, BsPersonCircle } from 'react-icons/bs';
 import { FcSearch } from 'react-icons/fc';
-import { ImCancelCircle } from 'react-icons/im';
-import { useNavigate } from 'react-router-dom';
-import { GeneralContext } from '../context/GeneralContext';
-import axios from 'axios';
-import debounce from 'lodash.debounce'; // Import debounce from lodash
 import '../styles/Navbar.css';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { GeneralContext } from '../context/GeneralContext';
+import { ImCancelCircle } from 'react-icons/im';
+import axios from 'axios';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation(); // Get the current route
   const usertype = localStorage.getItem('userType');
   const username = localStorage.getItem('username');
   const { cartCount, logout } = useContext(GeneralContext);
 
   const [productSearch, setProductSearch] = useState('');
   const [noResult, setNoResult] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
-  const [loading, setLoading] = useState(false); // Loading state for search
-
-  // Debounced search function
-  const handleSearch = debounce(async () => {
-    const trimmedQuery = productSearch.trim();
-    if (!trimmedQuery) {
-      setSearchResults([]);
-      setNoResult(false);
-      return;
-    }
-
-    setLoading(true); // Set loading to true
-
-    try {
-      const response = await axios.get('http://localhost:6001/search', {
-        params: { query: trimmedQuery },
-      });
-
-      const products = response.data;
-
-      if (products && products.length > 0) {
-        setSearchResults(products);
-        setNoResult(false);
-      } else {
-        setSearchResults([]);
-        setNoResult(true);
-      }
-    } catch (error) {
-      console.error('Error searching products:', error);
-      setSearchResults([]);
-      setNoResult(true);
-    } finally {
-      setLoading(false); // Set loading to false
-    }
-  }, 500); // Debounce with 500ms delay
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Cancel debounced function on unmount
-    return () => handleSearch.cancel();
+    fetchData();
   }, []);
 
-  // Handle "Enter" key press to navigate
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      if (searchResults.length > 0) {
-        navigate(`/product/${searchResults[0]._id}`); // Navigate to the first product if results exist
+  const fetchData = async () => {
+    try {
+      // Fetch categories
+      const categoryResponse = await axios.get('http://localhost:6001/fetch-categories');
+      setCategories(categoryResponse.data);
+
+      // Fetch all products
+      const productResponse = await axios.get('http://localhost:6001/fetch-products');
+      setProducts(productResponse.data);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  };
+
+  const handleSearch = () => {
+    // Check if search term matches any category
+    if (categories.map(category => category.toLowerCase()).includes(productSearch.toLowerCase())) {
+      navigate(`/category/${productSearch}`);
+    } else {
+      // Check if search term matches any product name or description
+      const foundProduct = products.find(product =>
+        product.title.toLowerCase().includes(productSearch.toLowerCase()) ||
+        product.description.toLowerCase().includes(productSearch.toLowerCase())
+      );
+
+      if (foundProduct) {
+        navigate(`/product/${foundProduct._id}`); // Navigate to product detail page
       } else {
-        setNoResult(true); // Show no result message if no products are found
+        setNoResult(true);
       }
+    }
+  };
+
+  // Handle Enter key press for search
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
     }
   };
 
@@ -75,33 +69,28 @@ const Navbar = () => {
       {!usertype ? (
         <div className="navbar">
           <h3 onClick={() => navigate('')}>ShopEZ</h3>
+
           <div className="nav-content">
             <div className="nav-search">
               <input
                 type="text"
                 name="nav-search"
                 id="nav-search"
-                placeholder="Search Electronics, Fashion, mobiles, etc."
+                placeholder="Search Electronics, Fashion, Mobiles, etc."
+                value={productSearch} // Keep the value in sync
                 onChange={(e) => setProductSearch(e.target.value)}
-                onKeyUp={handleKeyPress} // Trigger search on key up
+                onKeyPress={handleKeyPress} // Listen for Enter key press
               />
-              <FcSearch className="nav-search-icon" onClick={() => handleSearch()} />
-              {loading && <div>Loading...</div>} {/* Loading indicator */}
-
-              {noResult && !loading && (
+              <FcSearch className="nav-search-icon" onClick={handleSearch} />
+              {noResult && (
                 <div className="search-result-data">
-                  No items found.... try searching for Electronics, mobiles, Groceries, etc.
-                  <ImCancelCircle
-                    className="search-result-data-close-btn"
-                    onClick={() => setNoResult(false)}
-                  />
+                  no items found... try searching for Electronics, Mobiles, Groceries, etc.
+                  <ImCancelCircle className="search-result-data-close-btn" onClick={() => setNoResult(false)} />
                 </div>
               )}
             </div>
 
-            <button className="btn" onClick={() => navigate('/auth')}>
-              Login
-            </button>
+            <button className="btn" onClick={() => navigate('/auth')}>Login</button>
           </div>
         </div>
       ) : (
@@ -115,41 +104,27 @@ const Navbar = () => {
                     type="text"
                     name="nav-search"
                     id="nav-search"
-                    placeholder="Search Electronics, Fashion, mobiles, etc."
+                    placeholder="Search Electronics, Fashion, Mobiles, etc."
+                    value={productSearch} // Keep the value in sync
                     onChange={(e) => setProductSearch(e.target.value)}
-                    onKeyUp={handleKeyPress} // Trigger search on key up
+                    onKeyPress={handleKeyPress} // Listen for Enter key press
                   />
-                  <FcSearch className="nav-search-icon" onClick={() => handleSearch()} />
-                  {loading && <div>Loading...</div>} {/* Loading indicator */}
-
-                  {noResult && !loading && (
+                  <FcSearch className="nav-search-icon" onClick={handleSearch} />
+                  {noResult && (
                     <div className="search-result-data">
-                      No items found.... try searching for Electronics, mobiles, Groceries, etc.
-                      <ImCancelCircle
-                        className="search-result-data-close-btn"
-                        onClick={() => setNoResult(false)}
-                      />
+                      no items found... try searching for Electronics, Mobiles, Groceries, etc.
+                      <ImCancelCircle className="search-result-data-close-btn" onClick={() => setNoResult(false)} />
                     </div>
                   )}
                 </div>
 
                 <div className="nav-content-icons">
                   <div className="nav-profile" onClick={() => navigate('/profile')}>
-                    <BsPersonCircle
-                      className="navbar-icons"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="bottom"
-                      title="Profile"
-                    />
+                    <BsPersonCircle className="navbar-icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Profile" />
                     <p>{username}</p>
                   </div>
                   <div className="nav-cart" onClick={() => navigate('/cart')}>
-                    <BsCart3
-                      className="navbar-icons"
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="bottom"
-                      title="Cart"
-                    />
+                    <BsCart3 className="navbar-icons" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cart" />
                     <div className="cart-count">{cartCount}</div>
                   </div>
                 </div>
@@ -158,7 +133,6 @@ const Navbar = () => {
           ) : (
             <div className="navbar-admin">
               <h3 onClick={() => navigate('/admin')}>ShopEZ (admin)</h3>
-
               <ul>
                 <li onClick={() => navigate('/admin')}>Home</li>
                 <li onClick={() => navigate('/all-users')}>Users</li>
