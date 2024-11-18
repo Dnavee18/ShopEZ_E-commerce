@@ -28,7 +28,7 @@ cd ShopEZ
 
 ### 3. Navigate to the server directory (backend folder) and install the required dependencies using npm or yarn:
 ```bash
-cd "server"
+cd server
 npm install
 # or
 yarn install
@@ -36,7 +36,7 @@ yarn install
 
 ### 4. Move to the client folder and install the required packages:
 ```bash
-cd "../client"
+cd ../client
 npm install
 # or
 yarn install
@@ -44,11 +44,11 @@ yarn install
 
 ### 5. Run the backend and frontend servers:
 ```bash
-cd "server"
+cd server
 npm start
 ```
 ```bash
-cd "client"
+cd client
 npm start
 # or
 yarn start
@@ -58,7 +58,9 @@ yarn start
 For local MongoDB, ensure the MongoDB service is running. Update the backend configuration files with your database connection details if necessary
 
 ### 7. To verify that everything is set up correctly, open your browser and visit:
-http://localhost:3000: Access the ShopEZ frontend.
+```
+http://localhost:3000 : Access the ShopEZ frontend.
 Use tools like Postman to test backend API endpoints at http://localhost:6001, e.g., /products, /orders, etc.
+```
 
 # You're all set to explore ShopEZ!
