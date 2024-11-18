@@ -1,4 +1,4 @@
-# ShopEZ_E-Commerce
+# ShopEZ: E-commerce Application
 
 # DEMO
    [Drive Link](https://drive.google.com/file/d/1kjSUcZesIHXQWVRN6dhhVkwe5na0IVn9/view?usp=drive_link)
