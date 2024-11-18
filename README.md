@@ -1,8 +1,8 @@
 ## ShopEZ_E-Commerce
 
 # DEMO
-   # Drive Link:
-        ![Build Status](https://drive.google.com/file/d/1kjSUcZesIHXQWVRN6dhhVkwe5na0IVn9/view?usp=drive_link)
+# Drive Link:
+   ![Build Status](https://drive.google.com/file/d/1kjSUcZesIHXQWVRN6dhhVkwe5na0IVn9/view?usp=drive_link)
 
 # Prerequisites:
   Before starting, confirm the following software is installed on your system:
@@ -55,7 +55,8 @@ npm start
 yarn start
 ```
 
-# 6. For local MongoDB, ensure the MongoDB service is running. Update the backend configuration files with your database connection details if necessary
+# 6. MongoDB Database
+For local MongoDB, ensure the MongoDB service is running. Update the backend configuration files with your database connection details if necessary
 
 # 7. To verify that everything is set up correctly, open your browser and visit:
 http://localhost:3000: Access the ShopEZ frontend.
