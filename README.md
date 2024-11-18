@@ -1,8 +1,7 @@
 ## ShopEZ_E-Commerce
 
 # DEMO
-# Drive Link:
-   ![Build Status](https://drive.google.com/file/d/1kjSUcZesIHXQWVRN6dhhVkwe5na0IVn9/view?usp=drive_link)
+   ![Drive Link](https://drive.google.com/file/d/1kjSUcZesIHXQWVRN6dhhVkwe5na0IVn9/view?usp=drive_link)
 
 # Prerequisites:
   Before starting, confirm the following software is installed on your system:
