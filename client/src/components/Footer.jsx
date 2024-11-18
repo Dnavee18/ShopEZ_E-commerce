@@ -30,7 +30,7 @@ const Footer = () => {
 
         <ul>
           <li onClick={() => navigate('/profile')}>Profile</li>
-          <li onClick={() => navigate('/category/mobiles')}>Mobiles</li>
+          <li onClick={() => navigate('/category/Mobiles')}>Mobiles</li>
         </ul>
 
         <ul>
@@ -40,7 +40,7 @@ const Footer = () => {
 
         <ul>
           <li onClick={() => navigate('/category/Groceries')}>Grocery</li>
-          <li onClick={() => navigate('/category/Sports-Equipment')}>Sports</li>
+          <li onClick={() => navigate('/category/Sports Equipment')}>Sports</li>
         </ul>
       </div>
       <div className="footer-bottom">

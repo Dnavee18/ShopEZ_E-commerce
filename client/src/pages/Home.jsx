@@ -75,7 +75,7 @@ const Home = () => {
 
         <div
           className="home-category-card"
-          onClick={() => navigate('/category/mobiles')}
+          onClick={() => navigate('/category/Mobiles')}
         >
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3jUW7v1WFJL9Ylax9a4vazyKXwG-ktSinI4Rd7qi7MkhMr79UlIyyrNkbiK0Cz5u6WYw&usqp=CAU"
@@ -97,7 +97,7 @@ const Home = () => {
 
         <div
           className="home-category-card"
-          onClick={() => navigate('/category/Sports-Equipment')}
+          onClick={() => navigate('/category/Sports Equipment')}
         >
           <img
             src="https://a.storyblok.com/f/112937/568x464/82f66c3a21/all_the_english-_football_terms_you_need_to_know_blog-hero-low.jpg/m/620x0/filters:quality(70)/"
